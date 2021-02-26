@@ -8,9 +8,8 @@
     "build": "babel src --out-dir dist",
     "start": "node dist/server.js",
     "migrate": "babel-node ./src/database/models/index.js",
-    "pretest": "npm run migrate",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "test": "export NODE_ENV=test && nyc --reporter=html --reporter=text mocha --require @babel/register src/tests/**/*.test.js --timeout 10000 --exit"
+    "test": "npm run migrate && export NODE_ENV=test && nyc --reporter=html --reporter=text mocha --require @babel/register src/tests/**/*.test.js --timeout 10000 --exit"
   },
   "repository": {
     "type": "git",
@@ -42,6 +41,7 @@
     "dotenv": "^8.2.0",
     "http-status": "^1.5.0",
     "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
     "regenerator-runtime": "^0.13.7"
   }
