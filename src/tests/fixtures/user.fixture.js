@@ -15,6 +15,8 @@ const newUser = {
 	fullName: faker.name.findName(),
 	email: faker.internet.email(),
 	password: BcryptService.hashPassword(password),
+	createdAt: new Date(),
+	updatedAt: new Date(),
 };
 
 const userToChat = {
@@ -22,6 +24,8 @@ const userToChat = {
 	fullName: faker.name.findName(),
 	email: faker.internet.email(),
 	password: BcryptService.hashPassword(password),
+	createdAt: new Date(),
+	updatedAt: new Date(),
 };
 
 export const userToChatId = userToChat.id;

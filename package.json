@@ -2,7 +2,7 @@
   "name": "oneone-chat-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "dev:server": "nodemon --exec babel-node src/server.js",
     "build": "babel src --out-dir dist",
@@ -22,12 +22,6 @@
   },
   "homepage": "https://github.com/erickyvand/oneone-chat-backend#readme",
   "devDependencies": {
-    "@babel/cli": "^7.13.0",
-    "@babel/core": "^7.13.1",
-    "@babel/node": "^7.13.0",
-    "@babel/plugin-transform-runtime": "^7.13.7",
-    "@babel/preset-env": "^7.13.5",
-    "@babel/register": "^7.13.0",
     "chai": "^4.3.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.1.0",
@@ -36,13 +30,20 @@
     "nyc": "^15.1.0"
   },
   "dependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.1",
+    "@babel/node": "^7.13.0",
+    "@babel/plugin-transform-runtime": "^7.13.7",
+    "@babel/preset-env": "^7.13.5",
     "@babel/runtime": "^7.13.7",
+    "@babel/register": "^7.13.0",
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "http-status": "^1.5.0",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
-    "regenerator-runtime": "^0.13.7"
+    "regenerator-runtime": "^0.13.7",
+    "socket.io": "^3.1.2"
   }
 }

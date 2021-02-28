@@ -7,6 +7,19 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('App', () => {
+	it('Should check options method', done => {
+		chai
+			.request(server)
+			.options('')
+			.end((err, res) => {
+				res.body.should.be.an('object');
+				res.body.should.have.property('status');
+				res.body.status.should.be.a('number');
+				res.body.status.should.equal(OK);
+				res.body.should.have.property('message');
+			});
+		done();
+	});
 	it('Should show welcome message on root route', done => {
 		chai
 			.request(server)

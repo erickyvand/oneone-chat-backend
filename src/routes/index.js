@@ -1,15 +1,18 @@
-import { NOT_FOUND, OK } from 'http-status';
+import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from 'http-status';
 import AuthController from '../controllers/auth.controller';
 import MessageController from '../controllers/message.controller';
+import UserController from '../controllers/user.controller';
 import ResponseService from '../services/response.service';
-import { handleSuccessResponse } from '../utils';
+import { handleErrorResponse, handleSuccessResponse } from '../utils';
 
 const routes = (req, res) => {
 	let body = '';
 	req.on('data', chunk => {
 		body += chunk;
 	});
-	if (req.url === '/' && req.method === 'GET') {
+	if (req.method === 'OPTIONS') {
+		return handleSuccessResponse(OK, '', '', res);
+	} else if (req.url === '/' && req.method === 'GET') {
 		handleSuccessResponse(OK, 'One to one chat API', '', res);
 	} else if (req.url === '/api/auth/signup' && req.method === 'POST') {
 		req.on('end', async () => {
@@ -38,6 +41,8 @@ const routes = (req, res) => {
 				handleErrorResponse(INTERNAL_SERVER_ERROR, error.message, res);
 			}
 		});
+	} else if (req.url === '/api/users' && req.method === 'GET') {
+		UserController.getUsers(req, res);
 	} else {
 		ResponseService.setError(
 			NOT_FOUND,

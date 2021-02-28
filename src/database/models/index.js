@@ -8,7 +8,8 @@ const usersTable = `
     email character varying(250) NOT NULL,
     password character varying(250) NOT NULL,
     socket character varying(250) NOT NULL DEFAULT '',
-    createdAt DATE DEFAULT NOW()
+    createdAt TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP NOT NULL
   );
 `;
 
@@ -19,7 +20,7 @@ const messagesTable = `
     senderId integer NOT NULL,
     receiverId integer NOT NULL,
     message text NOT NULL,
-    createdAt DATE DEFAULT NOW()
+    createdAt TIMESTAMP NOT NULL
   );
 `;
 
