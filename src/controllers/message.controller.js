@@ -1,6 +1,5 @@
 import { CREATED, FORBIDDEN, NOT_FOUND } from 'http-status';
 import MessageService from '../services/message.service';
-import TokenService from '../services/token.service';
 import UserService from '../services/user.service';
 import {
 	handleAuthorization,
@@ -26,13 +25,12 @@ class MessageController {
 
 		if (typeof bearerHeader !== 'undefined') {
 			handleAuthorization(bearerHeader, req, res);
-			req.userData = TokenService.verifyToken(req.token);
 
 			// validation
 			const { error } = messageSchema.validate(req.body);
 
 			if (error) {
-				handleErrors(error, res);
+				return handleErrors(error, res);
 			}
 
 			// check user
@@ -45,6 +43,7 @@ class MessageController {
 					senderId: req.userData.id,
 					receiverId,
 					message,
+					createdAt: new Date(),
 				});
 
 				handleSuccessResponse(

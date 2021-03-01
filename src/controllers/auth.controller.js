@@ -39,6 +39,8 @@ class AuthController {
 				fullName,
 				email,
 				password: BcryptService.hashPassword(password),
+				createdAt: new Date(),
+				updatedAt: new Date(),
 			});
 
 			handleSuccessResponse(

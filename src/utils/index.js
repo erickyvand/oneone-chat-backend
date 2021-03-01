@@ -118,4 +118,6 @@ export const handleAuthorization = (bearerHeader, req, res) => {
 			res
 		);
 	}
+
+	req.userData = TokenService.verifyToken(req.token);
 };

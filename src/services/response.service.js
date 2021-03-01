@@ -36,7 +36,13 @@ class ResponseService {
 	static send(res) {
 		if (this.type === 'success') {
 			return res
-				.writeHead(this.statusCode, { 'Content-Type': 'application/json' })
+				.writeHead(this.statusCode, {
+					'Content-Type': 'application/json',
+					'Access-Control-Allow-Origin': '*',
+					'Access-Control-Request-Method': '*',
+					'Access-Control-Allow-Headers': '*',
+					'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
+				})
 				.end(
 					JSON.stringify({
 						status: this.statusCode,
@@ -46,7 +52,13 @@ class ResponseService {
 				);
 		}
 		return res
-			.writeHead(this.statusCode, { 'Content-Type': 'application/json' })
+			.writeHead(this.statusCode, {
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Request-Method': '*',
+				'Access-Control-Allow-Headers': '*',
+				'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
+			})
 			.end(
 				JSON.stringify({
 					status: this.statusCode,

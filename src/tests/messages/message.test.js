@@ -4,17 +4,18 @@ import {
 	CREATED,
 	FORBIDDEN,
 	INTERNAL_SERVER_ERROR,
+	NOT_FOUND,
 	UNAUTHORIZED,
 } from 'http-status';
 import server from '../../server';
-import { chatMessage } from '../fixtures/message.fixture';
+import { chatMessage, newChatMessage } from '../fixtures/message.fixture';
 import { expiredToken, loggedInToken } from '../fixtures/user.fixture';
 
 chai.should();
 chai.use(chaiHttp);
 
 describe('/POST messages', () => {
-	it('It should create a message', done => {
+	it('Should create a message', done => {
 		chai
 			.request(server)
 			.post('/api/messages')
@@ -34,13 +35,15 @@ describe('/POST messages', () => {
 			.post('/api/messages')
 			.send({})
 			.end((err, res) => {
-				res.body.should.be.an('object');
-				res.body.should.have.property('status');
-				res.body.status.should.equal(FORBIDDEN);
-				res.body.should.have.property('message');
-				res.body.message.should.equal(
-					'You can not proceed without setting authorization token'
-				);
+				if (res !== undefined) {
+					res.body.should.be.an('object');
+					res.body.should.have.property('status');
+					res.body.status.should.equal(FORBIDDEN);
+					res.body.should.have.property('message');
+					res.body.message.should.equal(
+						'You can not proceed without setting authorization token'
+					);
+				}
 			});
 		done();
 	});
@@ -79,6 +82,20 @@ describe('/POST messages', () => {
 						'Unauthorized, Token has expired signin again to get new token'
 					);
 				}
+			});
+		done();
+	});
+
+	it('Should check if user exists', done => {
+		chai
+			.request(server)
+			.post('/api/messages')
+			.set('Authorization', `Bearer ${loggedInToken}`)
+			.send(newChatMessage)
+			.end((err, res) => {
+				res.body.should.be.an('object');
+				res.body.status.should.equal(NOT_FOUND);
+				res.body.should.have.property('message');
 			});
 		done();
 	});

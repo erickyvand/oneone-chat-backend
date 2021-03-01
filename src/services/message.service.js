@@ -10,11 +10,19 @@ class MessageService {
 	 * @param  {integer} receiverId id
 	 * @param  {string} message text
 	 */
-	static createMessage({ senderId, receiverId, message }) {
+	static createMessage({ senderId, receiverId, message, createdAt }) {
 		return pool.query(
-			'INSERT INTO messages(senderId, receiverId, message) VALUES($1, $2, $3) RETURNING id, senderId, receiverId, createdAt',
-			[senderId, receiverId, message]
+			'INSERT INTO messages(senderId, receiverId, message, createdAt) VALUES($1, $2, $3, $4) RETURNING id, senderId, receiverId, message, createdAt',
+			[senderId, receiverId, message, createdAt]
 		);
+	}
+
+	/**
+	 * * get messages
+	 * @retuns object
+	 */
+	static getMessages() {
+		return pool.query('SELECT * FROM messages');
 	}
 
 	/**

@@ -7,6 +7,6 @@ export const chatMessage = {
 };
 
 export const newChatMessage = {
-	receiverId: faker.random.number({ min: 4, max: 4 }),
+	receiverId: faker.random.number({ min: 6, max: 6 }),
 	message: faker.lorem.sentence(),
 };
